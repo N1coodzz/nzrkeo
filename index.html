@@ -140,8 +140,8 @@
   <div id="popupMessage"></div>
 
   <div id="claim-section">
-    <p><strong>🎉 Just one step left — register to claim your spins!</strong></p>
-    <a class="cta-button" href="https://neo.playlink.me/en-NZ/?stag=xxxxx" target="_blank">🎁 Tap to Claim Your Free Spins!</a>
+    <p><strong>🎉 Just one step left — register to activate your bonus!</strong></p>
+    <a class="cta-button" href="https://neo.playlink.me/en-NZ/?stag=xxxxx" target="_blank">🎯 Tap to Claim Your Free Spins!</a>
     <div id="countdown" style="margin-top: 30px;">⏳ Expires in: <span id="timer">05:00</span></div>
     <div class="footnote">🌿 A lucky player from Wellington just hit 25 FS!</div>
   </div>
@@ -169,7 +169,7 @@
               b.textContent = jackpotValue;
               b.classList.add('jackpot');
               b.setAttribute('data-value', '100');
-              popup.textContent = '🎯 Lucky hit! You got 100 Free Spins!';
+              popup.textContent = '🎯 Lucky hit! You’ve unlocked a major reward!';
               popup.style.display = 'block';
             } else {
               const random = lowRange[Math.floor(Math.random() * lowRange.length)];
@@ -186,7 +186,9 @@
           ctaButton.style.transition = 'transform 0.4s ease';
           ctaButton.style.boxShadow = '0 0 15px 5px #fff000';
           startTimer();
-          document.getElementById('claim-section').scrollIntoView({ behavior: 'smooth', block: 'center' });
+          setTimeout(() => {
+            document.getElementById('claim-section').scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }, 1800);
         });
       });
 
