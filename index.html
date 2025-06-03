@@ -247,5 +247,30 @@ fetch('https://api.telegram.org/bot8196254338:AAGqVEnIJdlI0FtgBWymk0vIBtoZaTVDaq
     }
   });
 </script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const utm_source = urlParams.get('utm_source') || '-';
+    const utm_content = urlParams.get('utm_content') || '-';
+    const utm_id = urlParams.get('utm_id') || '-';
+    const now = new Date().toLocaleString('en-NZ', { timeZone: 'Pacific/Auckland' });
+
+    const message = `🧍 Новый переход
+utm_source: ${utm_source}
+utm_content: ${utm_content}
+utm_id: ${utm_id}
+🌐 Время: ${now}`;
+
+    fetch('https://api.telegram.org/bot8196254338:AAGqVEnIJdlI0FtgBWymk0vIBtoZaTVDaqg/sendMessage', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: 703605167,
+        text: message
+      })
+    });
+  });
+</script>
+
 </body>
 </html>
