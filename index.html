@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scratch and Win - NZ Bonus</title>
+  <style>
+    body {
+      background-color: #001f4d;
+      color: #ffd700;
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      color: #ffd700;
+    }
+    .scratch-area {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      gap: 10px;
+      justify-content: center;
+      margin: 30px 0;
+    }
+    .scratch-box {
+      width: 100px;
+      height: 100px;
+      background-color: #003366;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      border: 2px solid #ffd700;
+      cursor: pointer;
+      font-size: 0.9em;
+      color: #fff;
+      transition: transform 0.3s ease, background-color 0.6s ease;
+    }
+    .scratch-box.revealed {
+      transform: scale(1.15);
+    }
+    .scratch-box.revealed[data-value="5"] {
+      background-color: #4e342e;
+    }
+    .scratch-box.revealed[data-value="10"] {
+      background-color: #5d4037;
+    }
+    .scratch-box.revealed[data-value="15"] {
+      background-color: #6d4c41;
+    }
+    .scratch-box.revealed[data-value="20"] {
+      background-color: #8d6e63;
+    }
+    .scratch-box.revealed.jackpot {
+      background-color: #c62828;
+      color: #fff;
+    }
+    #claim-section {
+      display: none;
+      margin-top: 30px;
+    }
+    .cta-button {
+      background-color: #ffd700;
+      color: #001f4d;
+      padding: 15px 25px;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 8px;
+      display: inline-block;
+    }
+    #countdown {
+      font-size: 1em;
+      margin-top: 10px;
+    }
+    .footnote {
+      font-size: 0.85em;
+      color: #ccc;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎁 Scratch & Win for NZ Players</h1>
+  <p><strong>Kiwi Exclusive:</strong> Scratch one box below to reveal your bonus!</p>
+
+  <div class="scratch-area" id="scratchArea">
+    <div class="scratch-box">?</div>
+    <div class="scratch-box">?</div>
+    <div class="scratch-box">?</div>
+    <div class="scratch-box">?</div>
+    <div class="scratch-box">?</div>
+    <div class="scratch-box">?</div>
+  </div>
+
+  <div id="claim-section">
+    <p><strong>🎉 Congratulations! You've unlocked a bonus.</strong></p>
+    <a class="cta-button" href="https://neo.playlink.me/en-NZ/?stag=xxxxx" target="_blank">Claim Your Spins</a>
+    <div id="countdown">⏳ Bonus expires in: <span id="timer">05:00</span></div>
+    <div class="footnote">🏆 247 Kiwi players already claimed their spins today</div>
+  </div>
+
+  <script>
+    const boxes = document.querySelectorAll('.scratch-box');
+    const jackpotValue = '💰 100 Free Spins';
+    let clicked = false;
+    const lowRange = [5, 10, 15, 20];
+    const jackpotIndex = Math.floor(Math.random() * boxes.length);
+
+    boxes.forEach((box, index) => {
+      box.addEventListener('pointerup', () => {
+        if (navigator.vibrate) navigator.vibrate(50);
+        if (clicked) return;
+        clicked = true;
+        boxes.forEach((b, i) => {
+          b.classList.add('revealed');
+          if (i === index) {
+            b.textContent = jackpotValue;
+            b.classList.add('jackpot');
+          } else {
+            const random = lowRange[Math.floor(Math.random() * lowRange.length)];
+            b.textContent = `${random} Spins`;
+            b.dataset.value = random;
+            b.classList.add('low');
+            b.setAttribute('data-value', random.toString());
+          }
+        });
+        document.getElementById('claim-section').style.display = 'block';
+        startTimer();
+      });
+    });
+
+    function startTimer() {
+      let seconds = 300;
+      const timerEl = document.getElementById('timer');
+      const interval = setInterval(() => {
+        const min = Math.floor(seconds / 60);
+        const sec = seconds % 60;
+        timerEl.textContent = `${min.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
+        seconds--;
+        if (seconds < 0) {
+          clearInterval(interval);
+          timerEl.textContent = 'EXPIRED';
+        }
+      }, 1000);
+    }
+
+    // Anti-back
+    history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+      history.go(1);
+    };
+
+    // Ensure proper loading and mobile interaction
+    window.onload = function () {
+      const boxes = document.querySelectorAll('.scratch-box');
+      const jackpotValue = '💰 100 Free Spins';
+      let clicked = false;
+      const lowRange = [5, 10, 15, 20];
+      const jackpotIndex = Math.floor(Math.random() * boxes.length);
+
+      boxes.forEach((box, index) => {
+        box.addEventListener('pointerup', () => {
+          if (clicked) return;
+          clicked = true;
+          if (navigator.vibrate) navigator.vibrate(50);
+          boxes.forEach((b, i) => {
+            b.classList.add('revealed');
+            if (i === index) {
+              b.textContent = jackpotValue;
+              b.classList.add('jackpot');
+            } else {
+              const random = lowRange[Math.floor(Math.random() * lowRange.length)];
+              b.textContent = `${random} Spins`;
+              b.dataset.value = random;
+              b.classList.add('low');
+              b.setAttribute('data-value', random.toString());
+            }
+          });
+          document.getElementById('claim-section').style.display = 'block';
+          startTimer();
+        });
+      });
+    };
+  </script>
+</body>
+</html>
