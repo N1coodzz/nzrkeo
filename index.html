@@ -224,16 +224,25 @@
     const ctaBtn = document.getElementById('ctaBtn');
     if (ctaBtn) {
       ctaBtn.addEventListener('click', function () {
-        const timeSpent = Math.round((new Date() - sessionStart) / 1000);
-        const message = `🔥 CTA Clicked\\nTime: ${timeSpent}s\\nutm_source: ${utm_source}\\nutm_content: ${utm_content}\\nutm_id: ${utm_id}`;
-        fetch('https://api.telegram.org/bot8196254338:AAGqVEnIJdlI0FtgBWymk0vIBtoZaTVDaqg/sendMessage', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            chat_id: 703605167,
-            text: message
-          })
-        });
+     const timeSpent = Math.round((new Date() - sessionStart) / 1000);
+const now = new Date().toLocaleString('en-NZ', { timeZone: 'Pacific/Auckland' });
+
+const message = `🔥 CTA Clicked
+📅 Date: ${now}
+📄 Landing: Kiwi Spin Scratch
+⏱️ Time on page: ${timeSpent}s
+utm_source: ${utm_source}
+utm_content: ${utm_content}
+utm_id: ${utm_id}`;
+
+fetch('https://api.telegram.org/bot8196254338:AAGqVEnIJdlI0FtgBWymk0vIBtoZaTVDaqg/sendMessage', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    chat_id: 703605167,
+    text: message
+  })
+});
       });
     }
   });
