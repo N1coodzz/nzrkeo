@@ -141,7 +141,7 @@
 
   <div id="claim-section">
     <p><strong>🎉 Just one step left — register to activate your bonus!</strong></p>
-    <a class="cta-button" href="https://neo.playlink.me/en-NZ/?stag=249392_683f547e4b36eb5b75376961&sign-up=modal" target="_blank">🎯 Tap to Claim Your Free Spins!</a>
+    <a class="cta-button" id="ctaBtn" href="https://neo.playlink.me/en-NZ/?stag=249392_683f547e4b36eb5b75376961&sign-up=modal" target="_blank">🎯 Tap to Claim Your Free Spins!</a>
     <div id="countdown" style="margin-top: 30px;">⏳ Expires in: <span id="timer">05:00</span></div>
     <div class="footnote">🌿 A lucky player from Wellington just hit 25 FS!</div>
   </div>
@@ -213,5 +213,30 @@
       };
     });
   </script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const sessionStart = new Date();
+    const urlParams = new URLSearchParams(window.location.search);
+    const utm_source = urlParams.get('utm_source') || '-';
+    const utm_content = urlParams.get('utm_content') || '-';
+    const utm_id = urlParams.get('utm_id') || '-';
+
+    const ctaBtn = document.getElementById('ctaBtn');
+    if (ctaBtn) {
+      ctaBtn.addEventListener('click', function () {
+        const timeSpent = Math.round((new Date() - sessionStart) / 1000);
+        const message = `🔥 CTA Clicked\\nTime: ${timeSpent}s\\nutm_source: ${utm_source}\\nutm_content: ${utm_content}\\nutm_id: ${utm_id}`;
+        fetch('https://api.telegram.org/bot8196254338:AAGqVEnIJdlI0FtgBWymk0vIBtoZaTVDaqg/sendMessage', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: 703605167,
+            text: message
+          })
+        });
+      });
+    }
+  });
+</script>
 </body>
 </html>
