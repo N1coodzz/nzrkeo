@@ -271,6 +271,7 @@ utm_id: ${utm_id}`;
   <script>
   window.addEventListener('beforeunload', function () {
     const timeSpent = Math.round((new Date() - sessionStart) / 1000);
+    if (timeSpent < 1) return;
     const now = new Date().toLocaleString('en-NZ', { timeZone: 'Pacific/Auckland' });
 
     const message = `👋 Пользователь ушёл с лендинга
