@@ -220,7 +220,24 @@
   const utm_content = urlParams.get('utm_content') || '-';
   const utm_id = urlParams.get('utm_id') || '-';
 
-  // лог при клике по кнопке
+  // ✅ Лог нового перехода — СРАБАТЫВАЕТ ПРИ ЗАГРУЗКЕ
+  const now = new Date().toLocaleString('en-NZ', { timeZone: 'Pacific/Auckland' });
+  const messageEntry = `🧍 Новый переход
+utm_source: ${utm_source}
+utm_content: ${utm_content}
+utm_id: ${utm_id}
+🌐 Время: ${now}`;
+
+  fetch('https://api.telegram.org/bot8196254338:AAGqVEnIJdlI0FtgBWymk0vIBtoZaTVDaqg/sendMessage', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      chat_id: 703605167,
+      text: messageEntry
+    })
+  });
+
+  // 🔥 Лог по клику
   document.addEventListener('click', function (e) {
     if (e.target && e.target.id === 'ctaBtn') {
       e.preventDefault();
@@ -250,27 +267,26 @@ utm_id: ${utm_id}`;
       }, 300);
     }
   });
+</script>
+  <script>
+  window.addEventListener('beforeunload', function () {
+    const timeSpent = Math.round((new Date() - sessionStart) / 1000);
+    const now = new Date().toLocaleString('en-NZ', { timeZone: 'Pacific/Auckland' });
 
-  // лог при закрытии/уходе
- window.addEventListener('beforeunload', function () {
-  const timeSpent = Math.round((new Date() - sessionStart) / 1000);
-  const now = new Date().toLocaleString('en-NZ', { timeZone: 'Pacific/Auckland' });
-
-  const message = `👋 Пользователь ушёл с лендинга
+    const message = `👋 Пользователь ушёл с лендинга
 ⏱️ Был на странице: ${timeSpent}s
 📅 Время: ${now}`;
 
-  fetch('https://api.telegram.org/bot8196254338:AAGqVEnIJdlI0FtgBWymk0vIBtoZaTVDaqg/sendMessage', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      chat_id: 703605167,
-      text: message
-    }),
-    keepalive: true  // <-- это ключ
+    fetch('https://api.telegram.org/bot8196254338:AAGqVEnIJdlI0FtgBWymk0vIBtoZaTVDaqg/sendMessage', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: 703605167,
+        text: message
+      }),
+      keepalive: true
+    });
   });
-});
-
 </script>
 
 
