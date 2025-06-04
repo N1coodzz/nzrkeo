@@ -223,10 +223,13 @@
 
     const ctaBtn = document.getElementById('ctaBtn');
     if (ctaBtn) {
-      ctaBtn.addEventListener('click', function () {
-     const timeSpent = Math.round((new Date() - sessionStart) / 1000);
-     const now = new Date().toLocaleString('en-NZ', { timeZone: 'Pacific/Auckland' });
-     const message = `🔥 CTA Clicked
+ctaBtn.addEventListener('click', function (e) {
+  e.preventDefault(); // ⛔️ Остановить стандартный переход
+
+  const timeSpent = Math.round((new Date() - sessionStart) / 1000);
+  const now = new Date().toLocaleString('en-NZ', { timeZone: 'Pacific/Auckland' });
+
+  const message = `🔥 CTA Clicked
 📅 Date: ${now}
 📄 Landing: Kiwi Spin Scratch
 ⏱️ Time on page: ${timeSpent}s
@@ -234,15 +237,21 @@ utm_source: ${utm_source}
 utm_content: ${utm_content}
 utm_id: ${utm_id}`;
 
+  fetch('https://api.telegram.org/bot8196254338:AAGqVEnIJdlI0FtgBWymk0vIBtoZaTVDaqg/sendMessage', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      chat_id: 703605167,
+      text: message
+    })
+  });
 
-fetch('https://api.telegram.org/bot8196254338:AAGqVEnIJdlI0FtgBWymk0vIBtoZaTVDaqg/sendMessage', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    chat_id: 703605167,
-    text: message
-  })
-})};
+  // ⏱ Через 300 мс — открыть ссылку вручную
+  setTimeout(() => {
+    window.open(ctaBtn.href, '_blank');
+  }, 300);
+})}
+  }
       });
     }
   });
