@@ -160,13 +160,14 @@
       boxes.forEach((box, index) => {
         box.addEventListener('pointerup', () => {
           if (clicked) return;
-          const now1 = new Date().toLocaleString('en-NZ', { timeZone: 'Pacific/Auckland' });
+         const now1 = new Date().toLocaleString('en-NZ', { timeZone: 'Pacific/Auckland' });
+
 fetch('https://api.telegram.org/bot8196254338:AAGqVEnIJdlI0FtgBWymk0vIBtoZaTVDaqg/sendMessage', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
     chat_id: 703605167,
-    text: `🖐 Пользователь кликнул по скретч-игре\n📅 Время: ${now}`
+    text: `🖐 Пользователь кликнул по скретч-игре\n📅 Время: ${now1}`
   })
 });
 
