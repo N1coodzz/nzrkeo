@@ -167,7 +167,7 @@ fetch('https://api.telegram.org/bot8196254338:AAGqVEnIJdlI0FtgBWymk0vIBtoZaTVDaq
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
     chat_id: 703605167,
-    text: `🖐 Пользователь кликнул по скретч-игре\n📅 Время: ${now1}`
+    text: `🖐 Пользователь кликнул по скретч-игре\n📅 Время: ${now}`
   })
 });
 
@@ -192,14 +192,14 @@ fetch('https://api.telegram.org/bot8196254338:AAGqVEnIJdlI0FtgBWymk0vIBtoZaTVDaq
           });
           const claimSection = document.getElementById('claim-section');
           claimSection.style.display = 'block';
-          const now = new Date().toLocaleString('en-NZ', { timeZone: 'Pacific/Auckland' });
+          const now1 = new Date().toLocaleString('en-NZ', { timeZone: 'Pacific/Auckland' });
 
 fetch('https://api.telegram.org/bot8196254338:AAGqVEnIJdlI0FtgBWymk0vIBtoZaTVDaqg/sendMessage', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
     chat_id: 703605167,
-    text: `👀 Пользователь увидел кнопку (claim-section)\n📅 Время: ${now}`
+    text: `👀 Пользователь увидел кнопку (claim-section)\n📅 Время: ${now1}`
   })
 });
 
@@ -243,12 +243,12 @@ fetch('https://api.telegram.org/bot8196254338:AAGqVEnIJdlI0FtgBWymk0vIBtoZaTVDaq
   const utm_id = urlParams.get('utm_id') || '-';
 
   // ✅ Лог нового перехода — СРАБАТЫВАЕТ ПРИ ЗАГРУЗКЕ
-  const now = new Date().toLocaleString('en-NZ', { timeZone: 'Pacific/Auckland' });
+  const now2 = new Date().toLocaleString('en-NZ', { timeZone: 'Pacific/Auckland' });
   const messageEntry = `🧍 Новый переход
 utm_source: ${utm_source}
 utm_content: ${utm_content}
 utm_id: ${utm_id}
-🌐 Время: ${now}`;
+🌐 Время: ${now2}`;
 
   fetch('https://api.telegram.org/bot8196254338:AAGqVEnIJdlI0FtgBWymk0vIBtoZaTVDaqg/sendMessage', {
     method: 'POST',
@@ -294,11 +294,11 @@ utm_id: ${utm_id}`;
   window.addEventListener('beforeunload', function () {
     const timeSpent = Math.round((new Date() - sessionStart) / 1000);
     if (timeSpent < 1) return;
-    const now = new Date().toLocaleString('en-NZ', { timeZone: 'Pacific/Auckland' });
+    const now3 = new Date().toLocaleString('en-NZ', { timeZone: 'Pacific/Auckland' });
 
     const message = `👋 Пользователь ушёл с лендинга
 ⏱️ Был на странице: ${timeSpent}s
-📅 Время: ${now}`;
+📅 Время: ${now3}`;
 
     fetch('https://api.telegram.org/bot8196254338:AAGqVEnIJdlI0FtgBWymk0vIBtoZaTVDaqg/sendMessage', {
       method: 'POST',
