@@ -254,6 +254,24 @@ utm_id: ${utm_id}`;
     }
   });
 </script>
+  <script>
+  window.addEventListener('beforeunload', function () {
+    const timeSpent = Math.round((new Date() - sessionStart) / 1000);
+    const now = new Date().toLocaleString('en-NZ', { timeZone: 'Pacific/Auckland' });
+
+    const message = `👋 Пользователь ушёл с лендинга
+⏱️ Был на странице: ${timeSpent}s
+📅 Время: ${now}`;
+
+    navigator.sendBeacon(
+      'https://api.telegram.org/bot8196254338:AAGqVEnIJdlI0FtgBWymk0vIBtoZaTVDaqg/sendMessage',
+      new Blob([JSON.stringify({
+        chat_id: 703605167,
+        text: message
+      })], { type: 'application/json' })
+    );
+  });
+</script>
 
 </body>
 </html>
