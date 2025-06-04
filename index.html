@@ -225,15 +225,15 @@
     if (ctaBtn) {
       ctaBtn.addEventListener('click', function () {
      const timeSpent = Math.round((new Date() - sessionStart) / 1000);
-const now = new Date().toLocaleString('en-NZ', { timeZone: 'Pacific/Auckland' });
-
-const message = `🔥 CTA Clicked
+     const now = new Date().toLocaleString('en-NZ', { timeZone: 'Pacific/Auckland' });
+     const message = `🔥 CTA Clicked
 📅 Date: ${now}
 📄 Landing: Kiwi Spin Scratch
 ⏱️ Time on page: ${timeSpent}s
 utm_source: ${utm_source}
 utm_content: ${utm_content}
 utm_id: ${utm_id}`;
+
 
 fetch('https://api.telegram.org/bot8196254338:AAGqVEnIJdlI0FtgBWymk0vIBtoZaTVDaqg/sendMessage', {
   method: 'POST',
@@ -242,7 +242,7 @@ fetch('https://api.telegram.org/bot8196254338:AAGqVEnIJdlI0FtgBWymk0vIBtoZaTVDaq
     chat_id: 703605167,
     text: message
   })
-});
+})};
       });
     }
   });
