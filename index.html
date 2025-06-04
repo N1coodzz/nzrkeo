@@ -216,21 +216,14 @@
 <script>
   const sessionStart = new Date();
 
-  document.addEventListener('DOMContentLoaded', function () {
-    const urlParams = new URLSearchParams(window.location.search);
-    const utm_source = urlParams.get('utm_source') || '-';
-    const utm_content = urlParams.get('utm_content') || '-';
-    const utm_id = urlParams.get('utm_id') || '-';
+  document.addEventListener('click', function (e) {
+  if (e.target && e.target.id === 'ctaBtn') {
+    e.preventDefault();
 
-    const ctaBtn = document.getElementById('ctaBtn');
-    if (ctaBtn) {
-      ctaBtn.addEventListener('click', function (e) {
-        e.preventDefault();
+    const timeSpent = Math.round((new Date() - sessionStart) / 1000);
+    const now = new Date().toLocaleString('en-NZ', { timeZone: 'Pacific/Auckland' });
 
-        const timeSpent = Math.round((new Date() - sessionStart) / 1000);
-        const now = new Date().toLocaleString('en-NZ', { timeZone: 'Pacific/Auckland' });
-
-        const message = `🔥 CTA Clicked
+    const message = `🔥 CTA Clicked
 📅 Date: ${now}
 📄 Landing: Kiwi Spin Scratch
 ⏱️ Time on page: ${timeSpent}s
@@ -238,14 +231,21 @@ utm_source: ${utm_source}
 utm_content: ${utm_content}
 utm_id: ${utm_id}`;
 
-        fetch('https://api.telegram.org/bot8196254338:AAGqVEnIJdlI0FtgBWymk0vIBtoZaTVDaqg/sendMessage', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            chat_id: 703605167,
-            text: message
-          })
-        });
+    fetch('https://api.telegram.org/bot8196254338:AAGqVEnIJdlI0FtgBWymk0vIBtoZaTVDaqg/sendMessage', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: 703605167,
+        text: message
+      })
+    });
+
+    setTimeout(() => {
+      window.open(e.target.href, '_blank');
+    }, 300);
+  }
+});
+
 
         setTimeout(() => {
           window.open(ctaBtn.href, '_blank');
